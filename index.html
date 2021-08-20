@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Back End Assessment</title>
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body class="container">
+    <button id="complimentButton">Get a compliment</button>
+    <button id="fortuneButton">Fortune Cookie</button>
+    <button id = "misfortuneButton">Misfortune Cookie</button>
+    <select id= "animeSelect" >
+      <option>Choose an anime</option>
+      <option>Fullmetal Alchemist: Brotherhood</option>
+      <option>Tokyo Revengers</option>
+      <option>To Your Eternity</option>
+      <option>Made in Abyss</option>
+      <option>Re:Zero</option>
+    </select>
+
+    <input id="newAnime" placeholder="Any anime we're forgetting">
+    <input id="animeDesciption">
+    <button id="addAnime">Add Anime</button>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script>
+      document.getElementById("complimentButton").onclick = function () {
+        axios.get("http://localhost:4000/api/compliment/")
+            .then(function (response) {
+              const data = response.data;
+              alert(data);
+            });
+      };
+      document.getElementById("fortuneButton").onclick = function () {
+        axios.get("http://localhost:4000/api/fortune")
+        .then((response)=>{
+          const data = response.data;
+          alert(data)
+        })
+      }
+      document.getElementById("misfortuneButton").onclick = function () {
+        axios.get("http://localhost:4000/api/misfortune")
+        .then((response)=>{
+          const data = response.data;
+          alert(data)
+        })
+      }
+      document.getElementById("animeSelect").onchange = function () {
+        let input = document.getElementById("animeSelect").value
+        console.log(input)
+        if(input === "Choose an anime") return
+        axios.get("http://localhost:4000/api/anime")
+        .then((response)=>{
+          console.log(response.data)
+          let description = response.data[input];
+          alert(description)
+        })
+
+      }
+
+      document.getElementById("addAnime").onclick = function (){
+        let name = document.getElementById("newAnime").value
+        let description = document.getElementById("animeDesciption").value
+        
+        let obj = {
+          name,
+          description,
+        }
+        if(name ===""|| description === "") return
+        axios.post("http://localhost:4000/api/anime",obj)
+        .then((result)=>{
+          console.log(result.data)
+
+          document.getElementById("anime select").innerHTML = document.getElementById("anime select").innerHTML + `<option>${name}</option>`
+        })
+        document.getElementById("newAnime").value = ""
+        document.getElementById("newAnime").value = ""
+        
+
+      }
+    </script>
+  </body>
+</html>

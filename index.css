@@ -1,0 +1,21 @@
+#animeSelect{
+    position: absolute;
+    right: 220px;
+}
+
+#newAnime {
+    position:absolute;
+    top:40px;
+    right:220px;
+
+}
+#animeDesciption {
+    position: absolute;
+    right:220px;
+    top: 70px;
+}
+#addAnime {
+    position: absolute;
+    top: 100px;
+    right : 220px;
+}
